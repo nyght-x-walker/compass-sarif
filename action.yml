@@ -1,0 +1,27 @@
+name: COMPASS-RT SARIF
+description: Convert COMPASS-RT-style JSON findings to SARIF 2.1.0 for GitHub code scanning.
+author: Nyx
+branding:
+  icon: shield
+  color: green
+inputs:
+  input:
+    description: Path to the findings JSON file.
+    required: true
+  output:
+    description: Path to write the SARIF file.
+    required: false
+    default: compass.sarif
+  repo-root:
+    description: Repository root used to make absolute source paths relative.
+    required: false
+    default: .
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        python "${{ github.action_path }}/compass_sarif.py" \
+          "${{ inputs.input }}" \
+          --output "${{ inputs.output }}" \
+          --repo-root "${{ inputs.repo-root }}"

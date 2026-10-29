@@ -1,0 +1,31 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: CLI example
+        run: python compass_sarif.py examples/findings.json -o /tmp/compass.sarif
+      - name: Validate SARIF JSON
+        run: python -c "import json; json.load(open('/tmp/compass.sarif'))"
+      - name: Test composite action
+        uses: ./
+        with:
+          input: examples/findings.json
+          output: /tmp/action.sarif
+      - name: Validate action output
+        run: python -c "import json; data=json.load(open('/tmp/action.sarif')); assert data['version'] == '2.1.0'"

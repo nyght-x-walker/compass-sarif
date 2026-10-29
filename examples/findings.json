@@ -1,0 +1,44 @@
+{
+  "tool": {
+    "name": "COMPASS-RT",
+    "version": "0.2",
+    "informationUri": "https://github.com/nyght-x-walker/compass-sarif"
+  },
+  "run": {
+    "name": "sample-chat-run",
+    "target": "chat"
+  },
+  "findings": [
+    {
+      "ruleId": "LLM01.prompt-injection",
+      "ruleName": "Prompt injection",
+      "shortDescription": "Direct prompt injection changed the assistant's system behavior.",
+      "level": "error",
+      "message": "A direct prompt injection changed the assistant's system behavior.",
+      "uri": "app/chat.py",
+      "startLine": 42,
+      "endLine": 42,
+      "snippet": "user_input = request.json['message']",
+      "helpUri": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "properties": {
+        "owasp": "LLM01",
+        "attack": "direct",
+        "confidence": 0.92
+      }
+    },
+    {
+      "ruleId": "LLM02.insecure-output",
+      "ruleName": "Insecure output handling",
+      "shortDescription": "Model output was rendered without escaping.",
+      "level": "warning",
+      "message": "Model output was rendered without escaping.",
+      "uri": "app/render.py",
+      "startLine": 17,
+      "properties": {
+        "owasp": "LLM02",
+        "attack": "indirect",
+        "confidence": 0.81
+      }
+    }
+  ]
+}

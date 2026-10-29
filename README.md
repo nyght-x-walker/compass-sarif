@@ -116,6 +116,11 @@ See [`examples/compass.sarif`](examples/compass.sarif).
 - This does not replace a scanner, a judge, or an authorization process.
 - Only test systems you own or have written permission to test.
 
+## Related
+
+- [COMPASS-RT case study](https://github.com/nyght-x-walker/case-studies/blob/main/compass-rt.md)
+- [Case studies index](https://github.com/nyght-x-walker/case-studies)
+
 ## Development
 
 ```bash
